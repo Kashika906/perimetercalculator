@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Perimeter Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #a8edea, #fed6e3);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            width: 350px;
+            text-align: center;
+        }
+
+        select, input {
+            width: 90%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 8px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            background-color: #6c63ff;
+            color: white;
+            cursor: pointer;
+            margin-top: 10px;
+        }
+
+        button:hover {
+            background-color: #5548c8;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Perimeter Calculator</h2>
+
+    <select id="shape" onchange="generateInputs()">
+        <option value="">Select Shape</option>
+        <option value="circle">Circle</option>
+        <option value="square">Square</option>
+        <option value="rectangle">Rectangle</option>
+        <option value="parallelogram">Parallelogram</option>
+    </select>
+
+    <div id="inputs"></div>
+
+    <button onclick="calculatePerimeter()">Calculate</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+function generateInputs() {
+    const shape = document.getElementById("shape").value;
+    const inputsDiv = document.getElementById("inputs");
+    inputsDiv.innerHTML = "";
+
+    if (shape === "circle") {
+        inputsDiv.innerHTML = `
+            <input type="number" id="radius" placeholder="Enter radius">
+        `;
+    }
+
+    else if (shape === "square") {
+        inputsDiv.innerHTML = `
+            <input type="number" id="side" placeholder="Enter side length">
+        `;
+    }
+
+    else if (shape === "rectangle") {
+        inputsDiv.innerHTML = `
+            <input type="number" id="length" placeholder="Enter length">
+            <input type="number" id="width" placeholder="Enter width">
+        `;
+    }
+
+    else if (shape === "parallelogram") {
+        inputsDiv.innerHTML = `
+            <input type="number" id="base" placeholder="Enter base">
+            <input type="number" id="side" placeholder="Enter side length">
+        `;
+    }
+}
+
+function calculatePerimeter() {
+    const shape = document.getElementById("shape").value;
+    let perimeter = 0;
+
+    if (shape === "circle") {
+        const r = parseFloat(document.getElementById("radius").value);
+        perimeter = 2 * Math.PI * r;
+    }
+
+    else if (shape === "square") {
+        const s = parseFloat(document.getElementById("side").value);
+        perimeter = 4 * s;
+    }
+
+    else if (shape === "rectangle") {
+        const l = parseFloat(document.getElementById("length").value);
+        const w = parseFloat(document.getElementById("width").value);
+        perimeter = 2 * (l + w);
+    }
+
+    else if (shape === "parallelogram") {
+        const b = parseFloat(document.getElementById("base").value);
+        const s = parseFloat(document.getElementById("side").value);
+        perimeter = 2 * (b + s);
+    }
+
+    if (!shape) {
+        document.getElementById("result").innerText = "Please select a shape!";
+        return;
+    }
+
+    document.getElementById("result").innerText =
+        "Perimeter = " + perimeter.toFixed(2);
+}
+</script>
+
+</body>
+</html>
